@@ -50,50 +50,54 @@ generalLogger.stream = {
     },
 };
 
-let log_data = (message, label) => {
-    generalLogger.log({
-        level: 'verbose',
-        label,
-        message: message,
-    });
-};
+class Logger {
+    constructor(logger) {
+        this.logger = logger;
+    }
 
-let log_debug = (message, label) => {
-    generalLogger.log({
-        level: 'debug',
-        label,
-        message: message,
-    });
-};
+    log = (message, label) => {
+        this.logger.log({
+            level: 'verbose',
+            label,
+            message: message,
+        });
+    };
 
-let log_info = (message, label) => {
-    generalLogger.log({
-        level: 'info',
-        label,
-        message: message,
-    });
-};
+    debug = (message, label) => {
+        this.logger.log({
+            level: 'debug',
+            label,
+            message: message,
+        });
+    };
 
-let log_warn = (message, label) => {
-    generalLogger.log({
-        level: 'warn',
-        label,
-        message: message,
-    });
-};
+    info = (message, label) => {
+        this.logger.log({
+            level: 'info',
+            label,
+            message: message,
+        });
+    };
 
-let log_error = (message, label) => {
-    generalLogger.log({
-        level: 'error',
-        label,
-        message: message,
-    });
-};
+    warn = (message, label) => {
+        this.logger.log({
+            level: 'warn',
+            label,
+            message: message,
+        });
+    };
+
+    error = (message, label) => {
+        this.logger.log({
+            level: 'error',
+            label,
+            message: message,
+        });
+    };
+}
+
+let generalLog = new Logger(generalLogger);
 
 module.exports = {
-    log_data,
-    log_debug,
-    log_info,
-    log_warn,
-    log_error,
+    generalLog
 };

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var {log_data, log_debug, log_info, log_warn, log_error} = require('./logger/logger');
+var {generalLog} = require('./logger/logger');
 
 var app = express();
 
@@ -22,9 +22,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use( (req, res, done) => {
-  log_info(req.method, 'method');
-  log_info(req.params, 'params');
-  log_info(req.body, 'body');
+  generalLog.info(req.method, 'method');
+  generalLog.info(req.params, 'params');
+  generalLog.info(req.body, 'body');
   done();
 });
 
