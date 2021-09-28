@@ -1,4 +1,6 @@
-const {createLogger, format, transports} = require('winston');
+const winston = require('winston');
+require('winston-daily-rotate-file');
+const {createLogger, format, transports} = winston;
 const {combine, timestamp, printf, colorize} = format;
 const path = require('path');
 
@@ -32,6 +34,13 @@ const generalLogger = createLogger({
     ),
     transports: [
         new transports.Console(),
+        new transports.DailyRotateFile({
+            filename: 'application-%DATE%.log',
+            dirname: 'logs',
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: true,
+            maxFiles: '90d'
+        })
     ],
 });
 
