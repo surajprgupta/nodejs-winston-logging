@@ -2,10 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var {log_data, log_debug, log_info, log_warn, log_error} = require('./logger/logger');
 
 var app = express();
 
@@ -13,11 +14,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use( (req, res, done) => {
+  log_info(req.method, 'method');
+  log_info(req.params, 'params');
+  log_info(req.body, 'body');
+  done();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
