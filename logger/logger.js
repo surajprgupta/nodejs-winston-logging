@@ -1,5 +1,5 @@
 const {createLogger, format, transports} = require('winston');
-const {combine, timestamp, printf, colorize, label, prettyPrint} = format;
+const {combine, timestamp, printf, colorize} = format;
 const path = require('path');
 
 const replaceErrors = (key, value) => {
@@ -28,7 +28,6 @@ const generalLogger = createLogger({
     format: combine(
         colorize(),
         timestamp(),
-        prettyPrint(),
         formatter,
     ),
     transports: [
